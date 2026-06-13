@@ -735,8 +735,9 @@ function selLove(state,el){
 function calcStreak(){
   if(!records.length) return 0;
   const dates=[...new Set(records.map(r=>r.time.slice(0,10)))].sort().reverse();
-  const today=new Date().toISOString().slice(0,10);
-  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const tz=new Date().getTimezoneOffset()*60000;
+  const today=new Date(Date.now()-tz).toISOString().slice(0,10);
+  const yesterday=new Date(Date.now()-tz-86400000).toISOString().slice(0,10);
   if(dates[0]!==today&&dates[0]!==yesterday) return 0;
   let s=1;
   for(let i=1;i<dates.length;i++){
